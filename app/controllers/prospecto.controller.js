@@ -37,16 +37,13 @@ exports.findAll = (req, res) => {
 
   Prospecto.findAll({ 
     where: condition,
-    include: [{
-        model: 'estatus',
-        as: 'estatuses',
-        attributes: ['id', 'nombre']
-    }]
+    // include: [{
+    //     model: 'estatus',
+    //     attributes: ['id', 'nombre']
+    // }]
   }).then(data => {
-      console.log("---Hello-->");
       res.send(data);
    }).catch(err => {
-       console.log("casth..........");
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving prospecto."
@@ -70,26 +67,27 @@ exports.findOne = (req, res) => {
 
 exports.update = (req, res) => {
   const id = req.params.id;
-
+  
   Prospecto.update(req.body, {
+    estatusId: req.body.estatusId,
+    evaluacionId: req.body.idEvaluacion,
     where: { id: id }
-  })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "Tutorial was updated successfully."
-        });
-      } else {
-        res.send({
-          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating Tutorial with id=" + id
+  }).then(num => {
+    if (num == 1) {
+      res.send({
+        message: "Tutorial was updated successfully."
       });
+    } else {
+      res.send({
+        message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+      });
+    }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Error updating Tutorial with id=" + id
     });
+  });
 };
 
 exports.delete = (req, res) => {
