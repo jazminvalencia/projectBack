@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Prospecto = sequelize.define("Prospectos", {
+    const Prospecto = sequelize.define("prospect", {
       nombre: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -34,23 +34,25 @@ module.exports = (sequelize, Sequelize) => {
       rfc:{
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      evaluacionId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'evaluacions',
-          key: 'id'
-        }
-      },
+       },
       estatusId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { 
-          model: 'estatuses',
+          model: 'statuses',
           key: 'id'
         }
+      },
+      evaluacionId: {
+        type: Sequelize.INTEGER,
+        references: { 
+          model: 'evaluations',
+          key: 'id'
+        }
+      },
+      descripcionRechazo:{
+        type: Sequelize.STRING
       }
-  
     });
   
     return Prospecto;

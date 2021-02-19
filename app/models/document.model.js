@@ -1,5 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
-  const Documento = sequelize.define("documento", {
+  const Documento = sequelize.define("document", {
+    nombredoc: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     documento: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -8,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: { 
-        model: 'Prospectos',
+        model: 'prospects',
         key: 'id'
       }
     }

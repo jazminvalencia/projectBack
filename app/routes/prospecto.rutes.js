@@ -1,5 +1,5 @@
 module.exports = app => {
-    const prospectos = require("../controllers/prospecto.controller.js");
+    const prospectos = require("../controllers/prospect.controller.js");
   
     var router = require("express").Router();
   

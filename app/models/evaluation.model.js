@@ -1,11 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
-    const Estatus = sequelize.define("estatus", {
-      nombre: {
+    const Evaluacion = sequelize.define("evaluation", {
+      tipo: {
         type: Sequelize.STRING,
         allowNull: false,
-      }
+      },
     });
-  
-    return Estatus;
+    return Evaluacion;
   };
   

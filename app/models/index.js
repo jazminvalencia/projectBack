@@ -19,9 +19,9 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.evaluaciones = require("./evaluacion.model.js")(sequelize, Sequelize);
-db.documentos = require("./documento.model.js")(sequelize, Sequelize);
-db.estatus = require("./estatus.model.js")(sequelize, Sequelize);
-db.prospectos = require("./prospecto.model.js")(sequelize, Sequelize);
+db.evaluaciones = require("./evaluation.model.js")(sequelize, Sequelize);
+db.documentos = require("./document.model.js")(sequelize, Sequelize);
+db.estatus = require("./status.model.js")(sequelize, Sequelize);
+db.prospectos = require("./prospect.model.js")(sequelize, Sequelize);
 
 module.exports = db;
