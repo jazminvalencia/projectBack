@@ -14,7 +14,8 @@ exports.create = (req, res) => {
     telefono: req.body.telefono,
     rfc: req.body.rfc,
     estatusId: "1",
-    evaluacionId: null
+    evaluacionId: null,
+    descripcionRechazo: null,
   };
 
 
@@ -71,6 +72,7 @@ exports.update = (req, res) => {
   Prospecto.update(req.body, {
     estatusId: req.body.estatusId,
     evaluacionId: req.body.idEvaluacion,
+    descripcionRechazo: req.body.descripcionRechazo,
     where: { id: id }
   }).then(num => {
     if (num == 1) {
