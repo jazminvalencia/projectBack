@@ -38,10 +38,11 @@ exports.findAll = (req, res) => {
 
   Prospecto.findAll({ 
     where: condition,
-    // include: [{
-    //     model: 'estatus',
-    //     attributes: ['id', 'nombre']
-    // }]
+    include: [{
+        model: db.estatus,
+        attributes: ['id', 'tipoEstatus']
+        
+    }]
   }).then(data => {
       res.send(data);
    }).catch(err => {

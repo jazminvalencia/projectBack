@@ -39,14 +39,14 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { 
-          model: 'statuses',
+          model: 'status',
           key: 'id'
         }
       },
       evaluacionId: {
         type: Sequelize.INTEGER,
         references: { 
-          model: 'evaluations',
+          model: 'evaluation',
           key: 'id'
         }
       },

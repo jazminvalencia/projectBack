@@ -24,4 +24,14 @@ db.documentos = require("./document.model.js")(sequelize, Sequelize);
 db.estatus = require("./status.model.js")(sequelize, Sequelize);
 db.prospectos = require("./prospect.model.js")(sequelize, Sequelize);
 
+
+db.prospectos.belongsTo(db.estatus);
+db.estatus.hasMany(db.prospectos);
+
+db.prospectos.belongsTo(db.evaluaciones);
+db.evaluaciones.hasMany(db.prospectos);
+
+db.documentos.belongsTo(db.prospectos);
+db.prospectos.hasMany(db.documentos);
+
 module.exports = db;
