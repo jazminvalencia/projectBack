@@ -8,11 +8,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    prospectoId: {
+    prospectsId: {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: { 
-        model: 'prospect',
+        model: 'prospects',
         key: 'id'
       }
     }

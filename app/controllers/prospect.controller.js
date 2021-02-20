@@ -1,5 +1,7 @@
 const db = require("../models");
 const Prospecto = db.prospectos;
+const Estatus = db.estatus;
+const Evaluaciones = db.evaluaciones;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -13,8 +15,8 @@ exports.create = (req, res) => {
     cp: req.body.cp,
     telefono: req.body.telefono,
     rfc: req.body.rfc,
-    estatusId: "1",
-    evaluacionId: null,
+    statusId: "1",
+    evaluationsId: null,
     descripcionRechazo: null,
   };
 
@@ -39,10 +41,11 @@ exports.findAll = (req, res) => {
   Prospecto.findAll({ 
     where: condition,
     include: [{
-        model: db.estatus,
+        model: Estatus,
         attributes: ['id', 'tipoEstatus']
         
-    }]
+    }
+  ]
   }).then(data => {
       res.send(data);
    }).catch(err => {
@@ -71,8 +74,8 @@ exports.update = (req, res) => {
   const id = req.params.id;
   
   Prospecto.update(req.body, {
-    estatusId: req.body.estatusId,
-    evaluacionId: req.body.idEvaluacion,
+    statusId: req.body.statusId,
+    evaluationsId: req.body.evaluationsId,
     descripcionRechazo: req.body.descripcionRechazo,
     where: { id: id }
   }).then(num => {

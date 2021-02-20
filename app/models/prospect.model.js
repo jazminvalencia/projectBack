@@ -35,18 +35,18 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
        },
-      estatusId: {
+      statusId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { 
-          model: 'status',
+          model: 'statuses',
           key: 'id'
         }
       },
-      evaluacionId: {
+      evaluationsId: {
         type: Sequelize.INTEGER,
         references: { 
-          model: 'evaluation',
+          model: 'evaluations',
           key: 'id'
         }
       },
