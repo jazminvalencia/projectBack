@@ -1,6 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const fileUpload = require('express-fileupload');
+
+var path = require('path');
+global.appRoot = path.resolve(__dirname);
 
 const app = express();
 
@@ -8,11 +12,15 @@ var corsOptions = {
   origin: "http://localhost:8080"
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(fileUpload());
+
+app.use('/static', express.static('public'));
 
 const db = require("./app/models");
 

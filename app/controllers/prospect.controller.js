@@ -1,8 +1,9 @@
 const db = require("../models");
 const Prospecto = db.prospectos;
 const Estatus = db.estatus;
-const Evaluaciones = db.evaluaciones;
 const Op = db.Sequelize.Op;
+const path = require('path');
+const Documento = db.documentos;
 
 exports.create = (req, res) => {
   const prospecto = {
@@ -33,17 +34,62 @@ exports.create = (req, res) => {
     });
 };
 
+exports.upload = (req, res) => {
+  let sampleFile;
+  let uploadPath;
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+  for(let name of Object.keys(req.files)) {
+    sampleFile = req.files[name];
+    var d = new Date();
+    var mili = d.getTime();
+    var filename = path.parse(sampleFile.name);
+    var fullname = filename.name + mili + filename.ext; 
+    uploadPath = global.appRoot + '/public/docs/' + fullname;
+    sampleFile.mv(uploadPath, function(err) {
+      if (err) {
+        return res.status(400).json({
+          status: 'error',
+          error: 'req body cannot be empty',
+        });
+      }
+    });
+
+    console.log(uploadPath,"uploadPath");
+    var documento = {
+      prospectsId: req.body.prospectsId,
+      documento: fullname,
+      nombredoc: name
+    }
+    Documento.create(documento)
+    .then(data => {
+      // res.send(data);
+      console.log(data);
+    })
+    .catch(err => {
+      // res.status(500).send({
+      //   message:
+      //     err.message || "Some error occurred while creating the docs."
+      // });
+    });
+  }  
+  res.send('File uploaded!');
+}
 
 exports.findAll = (req, res) => {
   const nombre = req.query.nombre;
-  var condition = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null;
+  // var condition = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null;
 
   Prospecto.findAll({ 
-    where: condition,
+    // where: condition,
     include: [{
         model: Estatus,
         attributes: ['id', 'tipoEstatus']
-        
+     },
+    {
+      model: Documento,
+      attributes: ['id','nombredoc', 'documento']
     }
   ]
   }).then(data => {

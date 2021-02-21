@@ -15,7 +15,7 @@ module.exports = app => {
   
     router.delete("/:id", prospectos.delete);
   
-    router.delete("/", prospectos.deleteAll);
+    router.post("/upload", prospectos.upload);
   
     app.use('/api/prospectos', router);
   };
