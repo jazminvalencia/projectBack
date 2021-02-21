@@ -20,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(fileUpload());
 
+app.use(express.static(__dirname + '/dist'));
+
 app.use('/static', express.static('public'));
 
 const db = require("./app/models");
