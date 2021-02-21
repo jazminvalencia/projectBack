@@ -30,12 +30,11 @@ db.sequelize.sync();
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");
 // });
-
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to concredito application." });
+require("./app/routes/prospecto.rutes")(app);
+app.get('*', function (request, response) {
+  response.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
-require("./app/routes/prospecto.rutes")(app);
 
 const PORT = process.env.PORT || 5678;
 app.listen(PORT, () => {
