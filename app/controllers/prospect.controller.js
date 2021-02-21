@@ -58,20 +58,15 @@ exports.upload = (req, res) => {
 
     console.log(uploadPath,"uploadPath");
     var documento = {
-      prospectsId: req.body.prospectsId,
+      prospectId: req.body.prospectId,
       documento: fullname,
       nombredoc: name
     }
     Documento.create(documento)
     .then(data => {
-      // res.send(data);
-      console.log(data);
+  
     })
     .catch(err => {
-      // res.status(500).send({
-      //   message:
-      //     err.message || "Some error occurred while creating the docs."
-      // });
     });
   }  
   res.send('File uploaded!');
@@ -79,10 +74,8 @@ exports.upload = (req, res) => {
 
 exports.findAll = (req, res) => {
   const nombre = req.query.nombre;
-  // var condition = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null;
 
-  Prospecto.findAll({ 
-    // where: condition,
+  Prospecto.findAll({
     include: [{
         model: Estatus,
         attributes: ['id', 'tipoEstatus']
@@ -142,55 +135,3 @@ exports.update = (req, res) => {
   });
 };
 
-exports.delete = (req, res) => {
-  const id = req.params.id;
-
-  Tutorial.destroy({
-    where: { id: id }
-  })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "Tutorial was deleted successfully!"
-        });
-      } else {
-        res.send({
-          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Could not delete Tutorial with id=" + id
-      });
-    });
-};
-
-exports.deleteAll = (req, res) => {
-  Prospecto.destroy({
-    where: {},
-    truncate: false
-  })
-    .then(nums => {
-      res.send({ message: `${nums} Tutorials were deleted successfully!` });
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all tutorials."
-      });
-    });
-};
-
-exports.findAllPublished = (req, res) => {
-    Prospecto.findAll({ where: { published: true } })
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials."
-      });
-    });
-};

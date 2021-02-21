@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    prospectsId: {
+    prospectId: {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: { 
